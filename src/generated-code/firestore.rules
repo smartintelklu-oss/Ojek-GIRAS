@@ -1,0 +1,48 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    
+    // Fungsi pembantu verifikasi autentikasi
+    function isAuthenticated() {
+      return request.auth != null;
+    }
+    
+    function isOwner(userId) {
+      return isAuthenticated() && request.auth.uid == userId;
+    }
+
+    // Koleksi Users (Pelanggan)
+    match /users/{userId} {
+      allow read: if isAuthenticated();
+      allow write: if isOwner(userId);
+    }
+
+    // Koleksi Drivers (Mitra Driver)
+    match /drivers/{driverId} {
+      allow read: if isAuthenticated();
+      allow write: if isOwner(driverId);
+    }
+
+    // Koleksi Orders (Transaksi Ojek Online)
+    match /orders/{orderId} {
+      allow read: if isAuthenticated();
+
+      // Pelanggan membuat order baru pertama kali
+      allow create: if isAuthenticated() 
+        && request.resource.data.customerId == request.auth.uid
+        && request.resource.data.status == 'SEARCHING';
+
+      // Pelanggan dapat membatalkan, atau Driver menerima dan mengupdate status
+      allow update: if isAuthenticated() && (
+        // Pelanggan membatalkan order miliknya
+        (resource.data.customerId == request.auth.uid && request.resource.data.status == 'CANCELLED') ||
+        // Driver menerima order yang masih SEARCHING
+        (resource.data.status == 'SEARCHING' && request.resource.data.status == 'ACCEPTED' && request.resource.data.driverId == request.auth.uid) ||
+        // Driver yang ditugaskan mengupdate alur perjalanan
+        (resource.data.driverId == request.auth.uid)
+      );
+
+      allow delete: if false; // Audit trail: jangan hapus record
+    }
+  }
+}

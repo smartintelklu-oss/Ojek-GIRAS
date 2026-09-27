@@ -1,0 +1,35 @@
+{
+  "rules": {
+    ".read": "auth != null",
+    "users": {
+      "$userId": {
+        ".read": "auth != null",
+        ".write": "auth != null && auth.uid === $userId",
+        ".validate": "newData.hasChildren(['userId', 'name', 'phone'])"
+      }
+    },
+    "drivers": {
+      "$driverId": {
+        ".read": "auth != null",
+        ".write": "auth != null && auth.uid === $driverId",
+        "location": {
+          ".write": "auth != null && auth.uid === $driverId",
+          ".validate": "newData.hasChildren(['lat', 'lng', 'updatedAt'])"
+        }
+      }
+    },
+    "orders": {
+      ".indexOn": ["status", "customerId", "driverId", "createdAt"],
+      "$orderId": {
+        ".read": "auth != null",
+        // Pelanggan membuat order baru dengan status SEARCHING
+        ".write": "auth != null && (
+          (!data.exists() && newData.child('customerId').val() === auth.uid && newData.child('status').val() === 'SEARCHING') ||
+          (data.exists() && data.child('customerId').val() === auth.uid && newData.child('status').val() === 'CANCELLED') ||
+          (data.exists() && data.child('status').val() === 'SEARCHING' && newData.child('status').val() === 'ACCEPTED' && newData.child('driverId').val() === auth.uid) ||
+          (data.exists() && data.child('driverId').val() === auth.uid)
+        )"
+      }
+    }
+  }
+}

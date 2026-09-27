@@ -1,0 +1,6 @@
+{
+  "name": "Ojek Online MVP - Architecture & Dual App Platform",
+  "description": "Rancangan arsitektur, struktur proyek, dan prototipe interaktif platform Ojek Online (Customer Web App, Driver Android App, dan Mitra Penjual Food/Barang) dengan alur Belanja lengkap, checkout, pengiriman, dan konfirmasi barang diterima",
+  "requestFramePermissions": ["geolocation"],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

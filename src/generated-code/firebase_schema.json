@@ -1,0 +1,74 @@
+{
+  "users": {
+    "usr_cust_8829": {
+      "userId": "usr_cust_8829",
+      "name": "Rian Pratama",
+      "phone": "0812-9876-5432",
+      "email": "rian.pratama@gmail.com",
+      "avatar": "https://images.unsplash.com/photo-1535713875002-d1d0cf377fde",
+      "rating": 4.95,
+      "createdAt": 1726000000000
+    }
+  },
+  "drivers": {
+    "drv_mitra_1092": {
+      "driverId": "drv_mitra_1092",
+      "name": "Budi Santoso",
+      "phone": "0857-1122-3344",
+      "avatar": "https://images.unsplash.com/photo-1570295999919-56ceb5ecca61",
+      "vehicleModel": "Honda Vario 160 (Hitam)",
+      "plateNumber": "B 4920 SAK",
+      "rating": 4.92,
+      "completedTrips": 1420,
+      "isOnline": true,
+      "currentOrderId": null,
+      "location": {
+        "lat": -6.182012,
+        "lng": 106.825045,
+        "heading": 45,
+        "accuracyMeters": 4.2,
+        "updatedAt": 1726000005000
+      }
+    }
+  },
+  "orders": {
+    "ord_84920a": {
+      "orderId": "ord_84920a",
+      "customerId": "usr_cust_8829",
+      "customerName": "Rian Pratama",
+      "customerPhone": "0812-9876-5432",
+      "driverId": "drv_mitra_1092",
+      "driverName": "Budi Santoso",
+      "driverPhone": "0857-1122-3344",
+      "driverVehicle": "Honda Vario 160 (Hitam)",
+      "driverPlate": "B 4920 SAK",
+      "driverRating": 4.92,
+      "origin": {
+        "name": "Stasiun Gambir",
+        "address": "Jl. Medan Merdeka Timur No.1, Gambir, Jakarta Pusat",
+        "lat": -6.1767,
+        "lng": 106.8306
+      },
+      "destination": {
+        "name": "Grand Indonesia Mall",
+        "address": "Jl. M.H. Thamrin No.1, Kebon Melati, Jakarta Pusat",
+        "lat": -6.1950,
+        "lng": 106.8208
+      },
+      "distanceKm": 3.4,
+      "durationMins": 11,
+      "baseFare": 8000,
+      "distanceFare": 3500,
+      "appFee": 2000,
+      "totalFare": 13500,
+      "status": "ACCEPTED",
+      "tripStep": "HEADING_TO_PICKUP",
+      "paymentMethod": "CASH",
+      "paymentStatus": "UNPAID",
+      "createdAt": 1726000010000,
+      "acceptedAt": 1726000025000,
+      "startedAt": null,
+      "completedAt": null
+    }
+  }
+}
